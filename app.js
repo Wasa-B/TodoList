@@ -14,37 +14,53 @@
 // 5. 삭제 버튼 클릭 시 삭제 기능 실행
 // 6. 완료 버튼 클릭 시 데이터 DOM 이동 기능 실행
 
+const localKey = 'todoList';
 const summit = document.querySelector('.summit-btn');
-
+const input = document.querySelector('.main input');
 const list = document.querySelector('.todo-box-list');
+const item = document.querySelector('.first-item');
+var listData = {
+    list: [],
+};
+function loadData() {
+    var data = localStorage.getItem(localKey);
+    if (data == null) return;
+    listData = JSON.parse(data);
+}
+loadData();
+function saveData() {
+    var data = JSON.stringify(listData);
+    localStorage.setItem(localKey, data);
+}
+
+function addList(title, date, done) {
+    listData.list.append([title, date, done]);
+}
+
+function drawList() {}
 
 function generateTodo(text) {
-    var todo = document.createElement('li');
-    var div = document.createElement('div');
-    div.className = 'todo-box';
-    todo.append(div);
+    var todo = item.cloneNode(true);
+    todo.className = '';
+    var titleBox = todo.querySelector('.title');
+    titleBox.innerText = text;
 
-    var name = document.createElement('div');
-    name.className = 'title center';
-    name.innerText = text;
-    div.append(name);
+    var date = new Date();
+    var dateBox = todo.querySelector('.date');
+    dateBox.innerText = date.toDateString();
 
-    var date = document.createElement('div');
-    date.className = 'date center';
-    div.append(date);
-
-    var done = document.createElement('div');
-    done.className = 'done-btn';
-    div.append(done);
-
-    var del_btn = document.createElement('div');
-    del_btn.className = 'delete-btn';
-    div.append(del_btn);
+    const delBtn = todo.addEventListener('click', function () {});
 
     return todo;
 }
 
 summit.addEventListener('click', function () {
-    list.append(generateTodo('Test'));
+    var text = input.value;
+    if (text == '') {
+        text = 'Empty';
+    }
+    input.value = '';
+    list.append(generateTodo(text));
     console.log(list.innerHTML);
+    saveData();
 });

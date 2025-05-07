@@ -4,7 +4,7 @@
 }
 
 *{
-    border: 1px solid;
+    _border: 1px solid;
 }
 
 .center{
@@ -44,4 +44,7 @@ ul{
 
 .first-item{
     display: none;
+}
+.done-btn{
+    
 }

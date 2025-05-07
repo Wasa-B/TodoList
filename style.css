@@ -1,0 +1,47 @@
+*{
+    padding: 0; margin: 0;
+    box-sizing: border-box;
+}
+
+*{
+    border: 1px solid;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-box{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.input-box>input{
+    width: 70%;
+    padding: 15px;
+}
+
+.summit-btn{
+    width: 30%;
+}
+
+.todo-box-list{
+    padding: 10px;
+}
+ul{
+    margin-left: 30px;
+}
+.todo-box{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.first-item{
+    display: none;
+}

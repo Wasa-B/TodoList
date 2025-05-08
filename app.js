@@ -15,7 +15,7 @@
 // 6. 완료 버튼 클릭 시 데이터 DOM 이동 기능 실행
 
 const localKey = 'todoList';
-const summit = document.querySelector('.summit-btn');
+const submit = document.querySelector('.submit-btn');
 const input = document.querySelector('.main input');
 const list = document.querySelector('.todo-box-list');
 const item = document.querySelector('.template');
@@ -53,15 +53,17 @@ function removeData(index) {
     listData.list.splice(index, 1);
 }
 // todo data 변경
-function updateData(index, data) {
-    listData.list[index] = data;
+function updateData(index, text, date, done) {
+    listData.list[index].text = text;
+    listData.list[index].date = date;
+    listData.list[index].done = done;
 }
 // todoList 그리기
 // --template 새성
 function genElement(data, index) {
     var todo = item.cloneNode(true);
     todo.className = '';
-    var titleBox = todo.querySelector('.title');
+    var titleBox = todo.querySelector('.text');
     titleBox.innerText = data.text;
     var dateBox = todo.querySelector('.date');
     dateBox.innerText = data.date;
@@ -72,10 +74,10 @@ function genElement(data, index) {
     }
 
     isDone.addEventListener('click', function () {
-        updateData(index, createData(data.text, data.date, !data.done));
+        updateData(index, data.text, data.date, data.done == false);
         saveData();
         drawList();
-        console.log(data);
+        // console.log(listData.list);
     });
 
     var delBtn = todo.querySelector('.delete-btn');
@@ -98,7 +100,7 @@ function drawList() {
 loadData();
 drawList();
 //항목 추가 버튼 액션
-summit.addEventListener('click', function () {
+submit.addEventListener('click', function () {
     var text = input.value;
     if (text == '') {
         text = 'Empty';

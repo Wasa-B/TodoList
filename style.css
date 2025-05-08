@@ -30,10 +30,10 @@ header h1{
     width: 70%;
     height: 3rem;
     padding: 15px;
-
+    border-radius: 0;
 }
 
-.summit-btn{
+.submit-btn{
     width: 30%;
     height: 3rem;
     background-color: #333;
@@ -54,6 +54,7 @@ ul{
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    gap: .5rem;
     padding: 5px;
 }
 
@@ -64,6 +65,18 @@ ul{
 .todo-box i{
     font-size: 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+}
+
+.todo-box .ui{
+    min-width: 215px;
+    display: flex;
+    align-items: center;
+    gap:.75rem;
+}
+
+.todo-box .text{
+    text-wrap-mode:nowrap;
+    overflow: hidden;
 }

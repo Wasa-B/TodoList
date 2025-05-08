@@ -5,27 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="wrapper">
         <header>
-            <h1 class="center">Get Shit Done</h1>
+            <h1>Todo List</h1>
         </header>
-        <div class="main">
-            <div class="input-box">
-                <input type="text">
-                <div class="summit-btn center">Summit</div>
-            </div>
-            <ul class="todo-box-list">
-                <li class="first-item">
-                    <div class="todo-box template">
-                        <div class="title center">title</div>
-                        <div class="date center">date</div>
-                        <div class="done-btn"></div>
-                        <div class="delete-btn"></div>
+            <div class="center">
+                <div class="main">
+                <div class="input-box">
+                    <input type="text">
+                    <div class="summit-btn center">Summit</div>
+                </div>
+                <li class="template">
+                    <div class="todo-box">
+                        <div class="title">title</div>
+                        <div class="date">date</div>
+                        <div class="done-btn">
+                            <i class="ri-checkbox-blank-line"></i>
+                        </div>
+                        <div class="delete-btn delete-bin">
+                            <i class="ri-delete-bin-line"></i>
+                        </div>
                     </div>
                 </li>
-            </ul>
+                <ul class="todo-box-list"></ul>
+            </div>
         </div>
     </div>
     <script src="app.js"></script>

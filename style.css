@@ -7,25 +7,40 @@
     _border: 1px solid;
 }
 
+
 .center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    max-width: 1028px;
+    margin: auto;
+}
+
+header h1{
+    text-align: center;
 }
 
 .input-box{
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    text-align: center;
+    _gap:.75rem;
 }
 
 .input-box>input{
     width: 70%;
+    height: 3rem;
     padding: 15px;
+
 }
 
 .summit-btn{
     width: 30%;
+    height: 3rem;
+    background-color: #333;
+    color : #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .todo-box-list{
@@ -42,9 +57,13 @@ ul{
     padding: 5px;
 }
 
-.first-item{
+.template{
     display: none;
 }
-.done-btn{
-    
+
+.todo-box i{
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

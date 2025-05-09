@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Noto+Sans+KR:wght@100..900&display=swap');
+
 *{
     padding: 0; margin: 0;
     box-sizing: border-box;
-}
-
-*{
     _border: 1px solid;
 }
 
+body{
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 800;
+}
 
 .center{
     width: 100%;
@@ -14,14 +17,20 @@
     margin: auto;
 }
 
+header{
+    padding:2rem 1rem;
+    letter-spacing: .2em;
+}
+
 header h1{
     text-align: center;
+    font-family: "Cal Sans", sans-serif;
 }
 
 .input-box{
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 10px 0;
     text-align: center;
     _gap:.75rem;
 }
@@ -30,24 +39,50 @@ header h1{
     width: 70%;
     height: 3rem;
     padding: 15px;
+    font-size: 24px;
     border-radius: 0;
 }
 
+.input-box>input:focus{
+    outline: none;
+}
+
 .submit-btn{
+    font-size: 23px;
     width: 30%;
     height: 3rem;
     background-color: #333;
-    color : #ddd;
+    color : #fff;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.todo-box-list{
-    padding: 10px;
+.submit-btn:hover{
+    background: #444;
+    color: #eee;
 }
+
+
+/* list */
+
+.todo-box-list, .done-list{
+    position: relative;
+}
+
+.todo-box-list:after{
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: #333;
+    position:absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 ul{
-    margin-left: 30px;
+    list-style: none;
 }
 .todo-box{
     display: flex;
@@ -55,20 +90,34 @@ ul{
     justify-content: space-between;
     align-items: center;
     gap: .5rem;
-    padding: 5px;
+    padding: 5px 15px;
 }
 
 .template{
     display: none;
 }
 
-.todo-box i{
+.todo-box .ui i{
     font-size: 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
+.btn{
+    width: 8rem;
+    display: flex;
+    justify-content: center;
+}
+.btn div{
+    width: 50%;
+    transition: all .3s ease;
+}
+
+.btn div:hover{
+    color : #333;
+    background: #ddd;
+}
 .todo-box .ui{
     min-width: 215px;
     display: flex;
@@ -79,4 +128,19 @@ ul{
 .todo-box .text{
     text-wrap-mode:nowrap;
     overflow: hidden;
+}
+
+
+
+.done-list .todo-box{
+    background: #bbb;
+}
+
+@media (max-width: 600px){
+    .input-box{
+        flex-direction: column;
+    }
+    .input-box>input, .input-box>div{
+        width: 100%;
+    }
 }

@@ -18,17 +18,30 @@ const localKey = 'todoList';
 const submit = document.querySelector('.submit-btn');
 const input = document.querySelector('.main input');
 const list = document.querySelector('.todo-box-list');
+const done_list = document.querySelector('.done-list');
 const item = document.querySelector('.template');
 // todolist 데이터 구조
 var listData = {
     list: [],
 };
 //todoData생성
+//----Get Date String
+function getDate() {
+    const today = new Date();
+
+    const year = today.getFullYear(); // 2023
+    const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 06
+    const day = today.getDate().toString().padStart(2, '0'); // 18
+
+    const dateString = year + '-' + month + '-' + day; // 2023-06-18
+
+    return dateString;
+}
+
 function createData(text) {
-    var _date = new Date();
     var data = {
         text: text,
-        date: _date.toDateString(),
+        date: getDate(),
         done: false,
     };
     return data;
@@ -86,12 +99,19 @@ function genElement(data, index) {
         drawList();
         saveData();
     });
-    list.append(todo);
+    if (data.done == true) {
+        done_list.append(todo);
+    } else {
+        list.append(todo);
+    }
 }
 // --전체 리스트 그리기
 function drawList() {
     while (list.firstChild) {
         list.firstChild.remove();
+    }
+    while (done_list.firstChild) {
+        done_list.firstChild.remove();
     }
     listData.list.forEach((item, index) => {
         genElement(item, index);
@@ -100,15 +120,17 @@ function drawList() {
 loadData();
 drawList();
 //항목 추가 버튼 액션
-submit.addEventListener('click', function () {
+function submitEvent() {
     var text = input.value;
     if (text == '') {
         text = 'Empty';
     }
-
     addData(createData(text));
     drawList();
     input.value = '';
     console.log(list.innerHTML);
     saveData();
-});
+}
+
+submit.addEventListener('click', submitEvent);
+input.addEventListener('change', submitEvent);

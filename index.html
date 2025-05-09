@@ -18,26 +18,29 @@
                     <input type="text">
                     <div class="submit-btn center">추가</div>
                 </div>
-                <li class="template">
-                    <div class="todo-box">
-                        <div class="text">title</div>
-                        <div class="ui">
-                            <div class="date">date</div>
-                            <div class="btn">
-                                <div class="done-btn">
-                                    <i class="ri-checkbox-blank-line"></i>
-                                </div>
-                                <div class="delete-btn">
-                                    <i class="ri-delete-bin-line"></i>
+                <template id="todo-item">
+                    <li>
+                        <div class="todo-box">
+                            <div class="text">title</div>
+                            <div class="ui">
+                                <div class="date">date</div>
+                                <div class="btn">
+                                    <div class="done-btn">
+                                        <i class="ri-checkbox-blank-line"></i>
+                                    </div>
+                                    <div class="delete-btn">
+                                        <i class="ri-delete-bin-line"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <ul class="todo-box-list"></ul>
-                <ul class="done-list"></ul>
+                    </li>
+                </template>
+                    
+                    <ul class="todo-box-list"></ul>
+                    <ul class="done-list"></ul>
+                </div>
             </div>
-        </div>
     </div>
     <script src="app.js"></script>
 </body>

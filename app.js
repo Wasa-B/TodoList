@@ -19,11 +19,16 @@ const submit = document.querySelector('.submit-btn');
 const input = document.querySelector('.main input');
 const list = document.querySelector('.todo-box-list');
 const done_list = document.querySelector('.done-list');
-const item = document.querySelector('.template');
+const item = document.importNode(
+    document.querySelector('template#todo-item').content,
+    true
+);
+console.log(item);
 // todolist 데이터 구조
 var listData = {
     list: [],
 };
+
 //todoData생성
 //----Get Date String
 function getDate() {
@@ -72,11 +77,13 @@ function updateData(index, text, date, done) {
     listData.list[index].done = done;
 }
 // todoList 그리기
-// --template 새성
+// --template 생성
+// ----HTML 하나 생성
 function genElement(data, index) {
     var todo = item.cloneNode(true);
-    todo.className = '';
+    todo.id = '';
     var titleBox = todo.querySelector('.text');
+
     titleBox.innerText = data.text;
     var dateBox = todo.querySelector('.date');
     dateBox.innerText = data.date;
@@ -99,23 +106,27 @@ function genElement(data, index) {
         drawList();
         saveData();
     });
-    if (data.done == true) {
-        done_list.append(todo);
-    } else {
-        list.append(todo);
-    }
+    return todo;
 }
 // --전체 리스트 그리기
 function drawList() {
-    while (list.firstChild) {
-        list.firstChild.remove();
-    }
-    while (done_list.firstChild) {
-        done_list.firstChild.remove();
-    }
+    // Clear List
+    list.innerHTML = '';
+    done_list.innerHTML = '';
+    //draw elements
+    // --- document에서 append를 자주하면 성능에 안좋으니 다른곳에서 하고 마지막에 document에 추가
+    var listFrag = new DocumentFragment();
+    var doneFrag = new DocumentFragment();
     listData.list.forEach((item, index) => {
-        genElement(item, index);
+        let todo = genElement(item, index);
+        if (item.done == true) {
+            doneFrag.append(todo);
+        } else {
+            listFrag.append(todo);
+        }
     });
+    list.append(listFrag);
+    done_list.append(doneFrag);
 }
 loadData();
 drawList();
@@ -123,12 +134,11 @@ drawList();
 function submitEvent() {
     var text = input.value;
     if (text == '') {
-        text = 'Empty';
+        return;
     }
     addData(createData(text));
     drawList();
     input.value = '';
-    console.log(list.innerHTML);
     saveData();
 }
 

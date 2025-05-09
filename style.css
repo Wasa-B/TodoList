@@ -133,6 +133,12 @@ ul{
     background: #bbb;
 }
 
+.delete-anim{
+    transition: all .2s;
+    opacity: 0;
+}
+
+
 @media (max-width: 600px){
     .input-box{
         flex-direction: column;

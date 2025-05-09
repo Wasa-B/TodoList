@@ -19,10 +19,8 @@ const submit = document.querySelector('.submit-btn');
 const input = document.querySelector('.main input');
 const list = document.querySelector('.todo-box-list');
 const done_list = document.querySelector('.done-list');
-const item = document.importNode(
-    document.querySelector('template#todo-item').content,
-    true
-);
+const template = document.querySelector('template#todo-item');
+const item = document.importNode(template.content, true);
 console.log(item);
 // todolist 데이터 구조
 var listData = {
@@ -37,8 +35,10 @@ function getDate() {
     const year = today.getFullYear(); // 2023
     const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 06
     const day = today.getDate().toString().padStart(2, '0'); // 18
+    const hour = today.getHours().toString().padStart(2, '0');
+    const min = today.getMinutes().toString().padStart(2, '0');
 
-    const dateString = year + '-' + month + '-' + day; // 2023-06-18
+    const dateString = year + '-' + month + '-' + day + ' ' + hour + ':' + min; // 2023-06-18
 
     return dateString;
 }
@@ -80,7 +80,7 @@ function updateData(index, text, date, done) {
 // --template 생성
 // ----HTML 하나 생성
 function genElement(data, index) {
-    var todo = item.cloneNode(true);
+    const todo = item.cloneNode(true);
     todo.id = '';
     var titleBox = todo.querySelector('.text');
 
@@ -101,10 +101,17 @@ function genElement(data, index) {
     });
 
     var delBtn = todo.querySelector('.delete-btn');
-    delBtn.addEventListener('click', function () {
-        removeData(index);
-        drawList();
-        saveData();
+    delBtn.addEventListener('click', function (e) {
+        let target = this.parentNode.parentNode.parentNode.parentNode;
+        if (target.classList.contains('delete-anim')) {
+            return;
+        }
+        target.classList.add('delete-anim');
+        setTimeout(() => {
+            removeData(index);
+            drawList();
+            saveData();
+        }, 300);
     });
     return todo;
 }
@@ -143,4 +150,8 @@ function submitEvent() {
 }
 
 submit.addEventListener('click', submitEvent);
-input.addEventListener('change', submitEvent);
+input.addEventListener('keydown', (e) => {
+    if (e.code == 'Enter' || e.code == 'NumpadEnter') {
+        submitEvent();
+    }
+});

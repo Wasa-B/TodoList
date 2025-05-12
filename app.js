@@ -21,7 +21,7 @@ const list = document.querySelector('.todo-box-list');
 const done_list = document.querySelector('.done-list');
 const template = document.querySelector('template#todo-item');
 const item = document.importNode(template.content, true);
-console.log(item);
+// console.log(item);
 // todolist 데이터 구조
 var listData = {
     list: [],
@@ -42,7 +42,6 @@ function getDate() {
 
     return dateString;
 }
-
 function createData(text) {
     var data = {
         text: text,
@@ -155,3 +154,12 @@ input.addEventListener('keydown', (e) => {
         submitEvent();
     }
 });
+
+list.addEventListener('click', (e)=>{
+    console.log(e.target);
+    if(e.target.parentNode.classList.contains('delete-btn')){
+        console.log("Test");
+    }
+});
+
+

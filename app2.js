@@ -27,8 +27,9 @@ class TodoData {
     }
 }
 class TodoPage{
+    #itemID;
     constructor(dataKey, template){
-        this.itemID = 0;
+        this.#itemID = 0;
         this.dataKey = dataKey;
         this.tasks = [];
         this.template = template;
@@ -73,8 +74,8 @@ class TodoPage{
     }
     drawElement(task){
         const element = this.template.cloneNode(true);
-        let index = this.itemID;
-        this.itemID += 1;
+        let index = this.#itemID;
+        this.#itemID += 1;
         element.id = `item-${index}`;
         if(this.drawAction) this.drawAction(index,task, element)
         

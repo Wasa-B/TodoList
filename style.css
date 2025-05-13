@@ -85,10 +85,16 @@ li.delete{
 
 ul{
     list-style: none;
+    _overflow: hidden;
+}
+li{
+    height: 2.7rem;
+    position: relative;
 }
 .todo-box{
     display: flex;
     width: 100%;
+    
     justify-content: space-between;
     align-items: center;
     gap: .5rem;
@@ -142,6 +148,29 @@ ul{
     opacity: 0;
 }
 
+.move-out-anim>div{
+    animation-name: move-out;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+.move-in-anim>div{
+    animation-name: move-out;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+    animation-fill-mode:backwards;
+    animation-direction: reverse;
+}
+@keyframes move-out {
+    0%{
+        opacity: 100%;
+        left: 0;
+    }
+    100%{
+        opacity: 0%;
+        left: -100%;
+    }
+}
 
 @media (max-width: 600px){
     .input-box{

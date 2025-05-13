@@ -1,20 +1,7 @@
-function getDate() {
-    const today = new Date();
-
-    const year = today.getFullYear(); // 2023
-    const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 06
-    const day = today.getDate().toString().padStart(2, '0'); // 18
-    const hour = today.getHours().toString().padStart(2, '0');
-    const min = today.getMinutes().toString().padStart(2, '0');
-
-    const dateString = year + '-' + month + '-' + day + ' ' + hour + ':' + min; // 2023-06-18
-
-    return dateString;
-}
 class TodoData {
     constructor(text) {
         this.text = text;
-        this.date = getDate();
+        this.date = TodoData.getDate();
         this.done = false;
     }
     static parse(json){
@@ -22,6 +9,18 @@ class TodoData {
     }
     static cast(obj){
         return Object.setPrototypeOf(obj, this.prototype);
+    }
+    static getDate(){
+        const today = new Date();
+        const year = today.getFullYear(); // 2023
+        const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 06
+        const day = today.getDate().toString().padStart(2, '0'); // 18
+        const hour = today.getHours().toString().padStart(2, '0');
+        const min = today.getMinutes().toString().padStart(2, '0');
+
+        const dateString = year + '-' + month + '-' + day + ' ' + hour + ':' + min; // 2023-06-18
+
+        return dateString;
     }
     getJson(){
         return JSON.stringify(this);
@@ -102,13 +101,22 @@ pageData.removeAction = function(index,task,target){
 }
 pageData.updateAction = function(index,task,target){
     const target_i =target.querySelector(`.done-btn i`);
-    if(task.done){
-        target_i.className = 'ri-checkbox-line';
-        this.doneListElement.append(target);
-    }else{
-        target_i.className="ri-checkbox-blank-line"
-        this.taskListElement.append(target);
-    }
+    console.log("object");
+    target.className = "move-out-anim";
+    setTimeout(() => {
+        if(task.done){
+            target_i.className = 'ri-checkbox-line';
+            doneList.append(target);
+        }else{
+            target_i.className="ri-checkbox-blank-line"
+            taskList.append(target);
+        }
+        target.className = "move-in-anim";
+        setTimeout(()=>{
+            target.className = "";
+        }, 300);
+    }, 400);
+   
 }
 pageData.drawAction = function(index,task, element){
     element.querySelector(".text").innerText = task.text;

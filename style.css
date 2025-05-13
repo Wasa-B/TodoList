@@ -69,9 +69,7 @@ header h1{
 ul{
     position: relative;
 }
-li.delete{
-    display: none;
-}
+
 .todo-box-list:after{
     content: "";
     width: 100%;
@@ -90,6 +88,9 @@ ul{
 li{
     height: 2.7rem;
     position: relative;
+}
+li.delete{
+    display: none;
 }
 .todo-box{
     display: flex;
@@ -136,7 +137,9 @@ li{
     overflow: hidden;
 }
 
-
+.list{
+    height: 100%;
+}
 
 .done-list .todo-box{
     background: #bbb;
@@ -165,6 +168,9 @@ li{
     0%{
         opacity: 100%;
         left: 0;
+    }
+    60%{
+        opacity: 100%;
     }
     100%{
         opacity: 0%;

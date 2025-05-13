@@ -116,7 +116,6 @@ pageData.updateAction = function(index,task,target){
             target.className = "";
         }, 300);
     }, 400);
-   
 }
 pageData.drawAction = function(index,task, element){
     element.querySelector(".text").innerText = task.text;

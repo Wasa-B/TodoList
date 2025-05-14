@@ -18,7 +18,8 @@ class TodoData {
         const hour = today.getHours().toString().padStart(2, '0');
         const min = today.getMinutes().toString().padStart(2, '0');
 
-        const dateString = year + '-' + month + '-' + day + ' ' + hour + ':' + min; // 2023-06-18
+        // const dateString = year + '-' + month + '-' + day + ' ' + hour + ':' + min; // 2023-06-18
+        const dateString = year + '-' + month + '-' + day; // 2023-06-18
 
         return dateString;
     }
@@ -28,6 +29,7 @@ class TodoData {
 }
 class TodoPage{
     #itemID;
+    tasks=[];
     constructor(dataKey, template){
         this.#itemID = 0;
         this.dataKey = dataKey;
@@ -37,6 +39,7 @@ class TodoPage{
         this.updateAction = null;
         this.drawAction = null;
     }
+    getTask(index){return this.tasks[index];};
     loadTask(){
         const json = localStorage.getItem(this.dataKey);
         const dataList = JSON.parse(json);
@@ -61,14 +64,14 @@ class TodoPage{
     removeTask(index){
         let task = this.tasks[index];
         this.tasks[index] = null;
-        const target = document.querySelector(`#item-${index}`);
+        const target =  this.getElement(index);
         if(this.removeAction) this.removeAction(index,task,target);
         this.saveTask();
     }
     updateTask(index){
         const task = this.tasks[index];
         task.done = !task.done;
-        const target = document.querySelector(`#item-${index}`);
+        const target = this.getElement(index);
         if(this.updateAction)this.updateAction(index,task,target);
         this.saveTask()
     }
@@ -81,6 +84,9 @@ class TodoPage{
         
         return element;
     }
+    getElement(index){
+        return  document.querySelector(`#item-${index}`);
+    }
 }
 
 const template = document.querySelector("#todo-item");
@@ -92,7 +98,42 @@ const doneList = document.querySelector(".done-list");
 const submit = document.querySelector('.submit-btn');
 const input = document.querySelector('.main input');
 
+const editor = document.querySelector('.editor');
+const editorCancle = editor.querySelector('.cancle-btn');
+const editorSubmit = editor.querySelector('.enter-btn');
+const editorInput = editor.querySelector('.title');
+const editorDate = editor.querySelector('.date');
+let editIndex = -1;
+
 const pageData = new TodoPage("TestKey",templateItem);
+
+
+
+function editPopup(index){
+    editIndex = index;
+    const task =pageData.getTask(index);
+    editorInput.value = task.text;
+    const onlyDate = task.date.split(" ")[0];
+    editorDate.value =onlyDate;
+    console.log(editorDate.value);
+    editor.classList.add('active');
+}
+
+editorCancle.addEventListener('click',()=>{
+    editIndex = -1;
+    editor.classList.remove('active');
+});
+editorSubmit.addEventListener('click',()=>{
+    const task = pageData.getTask(editIndex);
+    const element = pageData.getElement(editIndex);
+    task.text = editorInput.value;
+    task.date = editorDate.value;
+    element.querySelector(".text").innerText = task.text;
+    element.querySelector('.date').innerText = task.date;
+    pageData.saveTask();
+    editIndex= -1;
+    editor.classList.remove('active');
+});
 
 pageData.removeAction = function(index,task,target){
     target.classList.add("delete-anim");
@@ -131,6 +172,10 @@ pageData.drawAction = function(index,task, element){
     var delBtn = element.querySelector('.delete-btn');
     delBtn.addEventListener('click',()=>{
         pageData.removeTask(index);
+    });
+    var editBtn = element.querySelector('.edit-btn');
+    editBtn.addEventListener('click',()=>{
+        editPopup(index);
     });
     if(task.done == false){
         taskList.append(element);
